@@ -17,7 +17,8 @@ class CategoriesTableSeeder extends Seeder
         for ($i = 0; $i < 50; $i++) {
             Category::create([
                 'name' => $faker->catchPhrase,
-                'description' => $faker->realText($maxNbChars = 255, $indexSize = 2)
+                'description' => $faker->realText($maxNbChars = 255, $indexSize = 2),
+                'photo' => 'http://www.lawnsciencesouthmanchester.co.uk/images/blog/weeds/Daisy_flower.jpg',
             ]);
         }
     }

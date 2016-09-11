@@ -15,4 +15,9 @@ class Answer extends Model
         'content',
         'is_correct'
     ];
+
+    public function word()
+    {
+        return $this->belongsTo('App\Models\Word');
+    }
 }

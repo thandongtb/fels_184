@@ -18,4 +18,22 @@ return [
     'logout' => 'Logout',
     'register' => 'Register',
     'toggle' => 'Toggle Navigation',
+    'home_menu' => 'Home',
+    'category_menu' => 'Categories',
+    'lesson_menu' => 'Lesson',
+    'word_menu' => 'Word Lists',
+    'title_category' => 'All Categories',
+    'title_lesson' => 'Lastest Lesson',
+    'see_all' => 'See All',
+    'word_all' => 'All Words',
+    'new_word' => 'New Words',
+    'learned_word' => 'Learned Words',
+    'unlearned_word' => 'Unlearned Words',
+    'select_category' => 'Select Category',
+    'type' => [
+        'all' => 'All Words',
+        'new' => 'New Words',
+        'ulearn' => 'Unlearn Words',
+        'learned' => 'Learned Words',
+    ]
 ];
