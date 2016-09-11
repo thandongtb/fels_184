@@ -54,10 +54,15 @@
 
                                 {{ Form::button('<i class="fa fa-btn fa-sign-in"></i>' . trans('auth.login'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
 
-                                <a href="{{ URL('facebook/redirect') }}">
-                                    {{ Form::button('<i class="fa fa-btn fa-sign-in"></i>' . trans('auth.login_facebook'), ['type' => 'button', 'class' => 'btn btn-primary']) }}
+                                <a class="btn btn-social-icon btn-facebook" href="{{ URL('social/redirect/facebook') }}">
+                                    <span class="fa fa-facebook"></span>
                                 </a>
-
+                                <a class="btn btn-social-icon btn-twitter" href="{{ URL('social/redirect/twitter') }}">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                                <a class="btn btn-social-icon btn-google" href="{{ URL('social/redirect/google') }}">
+                                    <span class="fa fa-google"></span>
+                                </a>
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">
                                     {{ trans('auth.forget_password') }}
                                 </a>

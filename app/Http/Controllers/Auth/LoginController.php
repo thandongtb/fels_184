@@ -42,38 +42,68 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function redirectToProvider()
+    public function redirectToProvider($driver)
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver($driver)->redirect();
     }
 
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return Response
-     */
-    public function handleProviderCallback()
+    public function handleProviderCallback($driver)
     {
-        $userSocial = Socialite::driver('facebook')->user();
-        $user = User::where('email', $userSocial->email)->first();
+        switch ($driver) {
+            case 'twitter':
+                $userSocial = Socialite::driver('twitter')->user();
+                $user = User::where('email', $userSocial->email)->orWhere('email', $userSocial->nickname)->first();
 
-        if ($userSocial) {
-            Auth::login($user);
+                if ($user) {
+                    Auth::login($user);
 
-            return redirect()->to($this->redirectTo);
+                    return redirect()->to($this->redirectTo);
+                }
+                $temp = new Social();
+                $user = User::create([
+                    'email' =>  $userSocial->email ? $userSocial->email : $userSocial->nickname,
+                    'name' => $userSocial->name,
+                ]);
+
+                $temp->user_id = $user->id;
+                $temp->provider_user_id = $userSocial->id;
+                $temp->provider = 'twitter';
+                $temp->save();
+                Auth::login($user);
+
+                return redirect()->to($this->redirectTo);
+
+                break;
+
+            default:
+                $user = $this->handleProvider($driver);
+                Auth::login($user);
+
+                return redirect()->to($this->redirectTo);
+
+                break;
+        }
+    }
+
+    public function handleProvider($driver) {
+        $userSocial = Socialite::driver($driver)->user();
+        $user = User::where('email', $userSocial->email)->orWhere('email')->first();
+
+        if ($user) {
+            return $user;
         }
         $temp = new Social();
         $user = User::create([
             'email' =>  $userSocial->email,
-            'name' => $userSocial->name
+            'name' => $userSocial->name,
         ]);
-        $temp->user_id = $user->id;
-        $temp->provider_user_id = $user->id;
-        $temp->provider = 'facebook';
-        $temp->save();
-        Auth::login($user);
 
-        return redirect()->to($this->redirectTo);
+        $temp->user_id = $user->id;
+        $temp->provider_user_id = $userSocial->id;
+        $temp->provider = $driver;
+        $temp->save();
+
+        return $user;
     }
 
     protected function validator(array $data)

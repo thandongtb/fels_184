@@ -5,6 +5,7 @@ node_modules/
 bootstrap/compiled.php
 app/storage/
 storage/
+public/bower/
 # Laravel 5 & Lumen specific
 bootstrap/cache/
 .env.*.php
