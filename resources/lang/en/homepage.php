@@ -31,9 +31,10 @@ return [
     'unlearned_word' => 'Unlearned Words',
     'select_category' => 'Select Category',
     'type' => [
-        'all' => 'All Words',
+        'all' => 'Alphabel',
         'new' => 'New Words',
         'ulearn' => 'Unlearn Words',
         'learned' => 'Learned Words',
+        'category' => 'Category',
     ]
 ];

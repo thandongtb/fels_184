@@ -13,4 +13,9 @@ class Word extends Model
         'content',
         'category_id'
     ];
+
+    public function answers()
+    {
+        return $this->hasMany('App\Models\Answer');
+    }
 }

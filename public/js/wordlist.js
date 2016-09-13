@@ -17,4 +17,12 @@ $(document).ready(function () {
             $('.table tr').css('display', 'none').fadeIn('slow');
         }
     });
+
+    $('#category-filter').on('change', function () {
+        $('#category-filter').submit();
+    });
+
+    $('#category-menu').on('change', function () {
+        $('#category-menu').submit();
+    });
 });
