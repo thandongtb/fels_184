@@ -21,4 +21,12 @@ return [
         'search' => 5,
         'normal' => 2,
     ],
+    'lesson' => [
+        'search' => 5,
+        'normal' => 12,
+    ],
+    'word' => [
+        'search' => 5,
+        'normal' => 10,
+    ],
 ];

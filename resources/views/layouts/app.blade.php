@@ -14,6 +14,10 @@
 
     {!! Html::style('css/app.css') !!}
     {!! Html::style('css/style.css') !!}
+    {!! Html::style('css/responsive.css') !!}
+    {!! Html::style('bower/owl.carousel/dist/assets/owl.carousel.css') !!}
+
+    @yield('css')
 
     <!-- Scripts -->
     <script>
@@ -53,7 +57,7 @@
                         <li><a href="{{ url('/register') }}">{{ trans('homepage.register') }}</a></li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -73,6 +77,12 @@
                         </li>
                     @endif
                 </ul>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ URL('home') }}">{{ trans('homepage.home_menu') }}</a></li>
+                     <li><a href="javascript:;">{{ trans('homepage.category_menu') }}</a></li>
+                    <li><a href="javascript:;">{{ trans('homepage.lesson_menu') }}</a></li>
+                    <li><a href="javascript:;">{{ trans('homepage.word_menu') }}</a></li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -81,5 +91,8 @@
 
     <!-- Scripts -->
     {!! Html::script('js/app.js') !!}
+    {!! Html::script('bower/owl.carousel/dist/owl.carousel.js') !!}
+
+    @yield('js')
 </body>
 </html>
