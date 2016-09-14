@@ -22,3 +22,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('social/redirect/{type}', 'Auth\LoginController@redirectToProvider');
 
 Route::get('social/callback/{driver}', 'Auth\LoginController@handleProviderCallback');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    Route::resource('/', 'AdminController');
+    Route::group(['namespace' => 'Admin'], function () {
+        Route::resource('users', 'UsersController');
+    });
+});
