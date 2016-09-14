@@ -14,7 +14,7 @@
                     <div class="fix home_content floatleft">
                         <div class="fix single_home_content">
                             <div class="fix single_home_content_container">
-                                <h2><i class="fa fa-angle-double-down"></i> {{ trans('homepage.title_lesson') }} </h2>
+                                <h2><i class="fa fa-angle-double-down"></i> {{ $categoryTitle }} </h2>
                                 @foreach ($lessons as $key => $lesson)
 
                                 <div class="fix single_content floatleft">
@@ -38,30 +38,40 @@
                                                         <div class="col-md-12">
                                                             <div class="col-md-3">
                                                                 {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal']) }}
-                                                                    {{ Form::hidden('type', 'new', ['class' => 'form-control']) }}
+                                                                    {{ Form::hidden('type', config('word.filter.new'), ['class' => 'form-control']) }}
                                                                     {{ Form::hidden('page', $page, ['class' => 'form-control']) }}
                                                                     {{ Form::button(trans('homepage.new_word'), ['type' => 'submit', 'class' => 'btn btn-success']) }}
                                                                 {{ Form::close() }}
                                                             </div>
                                                             <div class="col-md-4">
                                                                 {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal']) }}
-                                                                    {{ Form::hidden('type', 'ulearn', ['class' => 'form-control']) }}
+                                                                    {{ Form::hidden('type', config('word.filter.ulearn'), ['class' => 'form-control']) }}
                                                                     {{ Form::hidden('page', $page, ['class' => 'form-control']) }}
                                                                     {{ Form::button(trans('homepage.unlearned_word'), ['type' => 'submit', 'class' => 'btn btn-danger  btn-filter']) }}
                                                                 {{ Form::close() }}
                                                             </div>
                                                             <div class="col-md-3">
                                                                 {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal']) }}
-                                                                    {{ Form::hidden('type', 'learned', ['class' => 'form-control']) }}
+                                                                    {{ Form::hidden('type', config('word.filter.learned'), ['class' => 'form-control']) }}
                                                                     {{ Form::hidden('page', $page, ['class' => 'form-control']) }}
                                                                     {{ Form::button(trans('homepage.learned_word'), ['type' => 'submit', 'class' => 'btn btn-warning']) }}
                                                                 {{ Form::close() }}
                                                             </div>
                                                             <div class="col-md-2">
                                                                 {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal']) }}
-                                                                    {{ Form::hidden('type', 'all', ['class' => 'form-control']) }}
+                                                                    {{ Form::hidden('type', config('word.filter.all'), ['class' => 'form-control']) }}
                                                                     {{ Form::hidden('page', $page, ['class' => 'form-control']) }}
                                                                     {{ Form::button(trans('homepage.word_all'), ['type' => 'submit', 'class' => 'btn btn-default  btn-filter']) }}
+                                                                {{ Form::close() }}
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal', 'id' => 'category-filter']) }}
+                                                                    {{ Form::hidden('type', config('word.filter.category'), ['class' => 'form-control']) }}
+                                                                    {{ Form::hidden('page', $page, ['class' => 'form-control']) }}
+                                                                    {{ Form::select('category', $categories, null, ['class' => 'form-control' ]) }}
                                                                 {{ Form::close() }}
                                                             </div>
                                                         </div>
@@ -82,14 +92,18 @@
                                                                         <div class="media col-md-12">
                                                                             <div class="col-md-3">
                                                                                 <a href="#" class="{{ $type }}">
-                                                                                    {{ $word->word->content }}
+                                                                                    {{ $word->content }}
                                                                                 </a>
                                                                             </div>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right"></span>
                                                                                 <h4 class="title text-justify">
                                                                                     <i>
-                                                                                        {{ $word->content }}
+                                                                                        @foreach ($word->answers as $key => $answer)
+                                                                                            @if ($answer->is_correct == config('word.answer.correct'))
+                                                                                                {{ $answer->content }}
+                                                                                            @endif
+                                                                                        @endforeach()
                                                                                     </i>
                                                                                     <span class="pull-right pagado">{{ $type }}</span>
                                                                                 </h4>
@@ -113,12 +127,11 @@
                     <div class="fix home_content_sidebar floatright">
                         <div class="home_single_sidebar">
                             <h2><i class="fa fa-bars"></i> {{ trans('homepage.category_menu') }}</h2>
-                            <select class="form-control">
-                                <option selected="selected"><a>{{ trans('homepage.select_category') }}</a></option>
-                                @foreach ($categories as $key => $category)
-                                    <option><a>{{ $category->name }}</a></option>
-                                @endforeach()
-                            </select>
+                            {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal', 'id' => 'category-menu']) }}
+                                {{ Form::hidden('lessonType', config('word.filter.category_lesson'), ['class' => 'form-control']) }}
+                                {{ Form::hidden('page', $page, ['class' => 'form-control']) }}
+                                {{ Form::select('category', $categories, null, ['class' => 'form-control']) }}
+                            {{ Form::close() }}
                         </div>
                     </div> <!-- End home sidebar-->
                 </div>
