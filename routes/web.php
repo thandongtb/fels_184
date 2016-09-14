@@ -13,19 +13,24 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('user');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->middleware('user');
 
 Route::get('social/redirect/{type}', 'Auth\LoginController@redirectToProvider');
 
 Route::get('social/callback/{driver}', 'Auth\LoginController@handleProviderCallback');
 
+Route::resource('lesson', 'LessonsController');
+
+Route::resource('result', 'ResultController');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/', 'AdminController');
     Route::group(['namespace' => 'Admin'], function () {
         Route::resource('users', 'UsersController');
+        Route::resource('categories', 'CategoriesController');
     });
 });

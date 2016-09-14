@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class UserMiddleware
 {
@@ -15,9 +16,10 @@ class UserMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == config('user.role.user')) {
+        if (Auth::check()) {
             return $next($request);
         }
-        return redirect()->to('login')->withErrors([trans('error.access_denied')]);
+
+        return redirect()->to(config('url.login'))->withErrors([trans('error.access_denied')]);
     }
 }

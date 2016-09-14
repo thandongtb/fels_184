@@ -1,0 +1,12 @@
+<?php
+
+return [
+    'category' => [
+        'path' => [
+            'public_photo_url' => '/public/images/categories/',
+            'photo_url' => '/images/categories/',
+            'default_name_photo' => 'default-category.png',
+            'default_photo_url' => 'https://cdn3.iconfinder.com/data/icons/unicons-vector-icons-pack/32/categories-256.png',
+        ],
+    ],
+];

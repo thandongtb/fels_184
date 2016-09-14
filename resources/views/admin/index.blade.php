@@ -22,12 +22,12 @@
                             <i class="fa fa-users fa-3x"></i>
                         </div>
                         <div class="col-xs-10 text-right">
-                            <div class="huge">{{ $users }}</div>
+                            <div class="huge">{{ $totalUsers }}</div>
                             <div>{{ trans('admin/users.manage_users') }}</div>
                         </div>
                     </div>
                 </div>
-                <a href="{{ URl('/admin/users') }}">
+                <a href="{{ action('Admin\UsersController@index') }}">
                     <div class="panel-footer">
                         <span class="pull-left">{{ trans('admin/users.view_details') }}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -44,12 +44,12 @@
                             <i class="fa fa-tasks fa-3x"></i>
                         </div>
                         <div class="col-xs-10 text-right">
-                            <div class="huge">12</div>
+                            <div class="huge">{{ $totalCategories }}</div>
                             <div>{{ trans('admin/users.manage_categories') }}</div>
                         </div>
                     </div>
                 </div>
-                <a href="{{ URL('admin/categories') }}">
+                <a href="{{ action('Admin\CategoriesController@index') }}">
                     <div class="panel-footer">
                         <span class="pull-left">{{ trans('admin/users.view_details') }}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ URL('admin/lessons') }}">
+                <a href="#">
                     <div class="panel-footer">
                         <span class="pull-left">{{ trans('admin/users.view_details') }}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ URL('admin/words') }}">
+                <a href="#">
                     <div class="panel-footer">
                         <span class="pull-left">{{ trans('admin/users.view_details') }}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ URL('admin/words') }}">
+                <a href="#">
                     <div class="panel-footer">
                         <span class="pull-left">{{ trans('admin/users.view_details') }}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

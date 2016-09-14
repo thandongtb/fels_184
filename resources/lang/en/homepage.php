@@ -36,5 +36,12 @@ return [
         'ulearn' => 'Unlearn Words',
         'learned' => 'Learned Words',
         'category' => 'Category',
+    ],
+    'lesson-message' => [
+        'wrong-answer' => 'Wrong Answer',
+        'correct-answer' => 'Correct Answer',
+        'result-of' => 'Result of :',
+        'learned' => 'You have learned this lesson',
+        'lesson' => 'Lesson :',
     ]
 ];

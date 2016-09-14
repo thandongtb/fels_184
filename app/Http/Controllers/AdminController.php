@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\User;
+use App\Models\Category;
 use Auth;
 
 class AdminController extends Controller
@@ -16,9 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all()->count();
+        $totalUsers = User::count();
+        $totalCategories = Category::count();
 
-        return view('admin.index', compact('users'));
+        return view('admin.index', compact('totalUsers', 'totalCategories'));
     }
 
     /**

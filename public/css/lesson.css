@@ -1,0 +1,129 @@
+#frame {
+    max-width: 620px;
+    width: auto;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 10px;
+    margin: 3px;
+}
+
+h1 {
+    font: normal bold 2em/1.8em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: left;
+    border-bottom: 1px solid #999;
+    padding: 0; width: auto
+}
+
+h2 {
+    font: italic bold 1.3em/1.2em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 0; text-align: center; margin: 20px 0;
+}
+
+p.pager {
+    margin: 5px 0 5px;  font: bold 1em/1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #999;
+}
+
+img.question-image {
+    display: block;
+    max-width: 250px; margin: 10px auto;
+    border: 1px solid #ccc;
+    width: 100%; height: auto;
+}
+
+#choice-block {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#submitbutton {
+    background: #5a6b8c;
+}
+
+#submitbutton: hover {
+    background: #7b8da6;
+}
+
+#explanation {
+    margin: 0 auto;
+    padding: 20px;
+    width: 75%;
+}
+
+.choice-box {
+    display: block;
+    text-align: center;
+    margin: 8px auto;
+    padding: 10px 0;
+    border: 1px solid #666;
+    cursor: pointer;
+    -webkit-border-radius:  5px;
+    -moz-border-radius:  5px;
+    border-radius:  5px;
+}
+
+.wrong-answer {
+    color: #FE2E2E;
+}
+
+.wrong-answer-text {
+    color: #585858;
+}
+
+.correct-answer {
+    color: #088A08;
+}
+
+.correct-answer-text {
+    color: #2E2EFE;
+}
+
+.choice-box-submit {
+    font-weight: 700;
+    color: #0101DF;
+    padding: 30px 0;
+}
+
+.choice-box-check {
+    font-weight: 700;
+    color: #222;
+    padding: 30px 0;
+}
+
+.on-choice-correct {
+    background-color: #50D943 !important;
+}
+
+.on-choice-false {
+    background-color: #D92623 !important;
+}
+
+.check-answer{
+    color: #222;
+}
+
+.choice-on-mouseover {
+    background-color: #e1e1e1;
+}
+
+.choice-on-mouseout {
+    background-color: #fff;
+}
+
+.choise.onclick {
+    border-color: #222;
+    font-weight: 700;
+    background-color: #c1c1c1;
+}
+
+.off-summit {
+    color: #000;
+    background-color: #c1c1c1;
+}
+
+.end-quiz {
+    text-align: center;
+    font-size: 4em;
+}

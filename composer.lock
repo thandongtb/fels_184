@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "22a34ad1ab9435b4dfad6a532d622fe7",
+    "hash": "f99ebbfda1539be8542f47d781ebcece",
     "content-hash": "8d3e9bd1d17a141ae321a1f5a415c41b",
     "packages": [
         {
@@ -1004,15 +1004,7 @@
                 "framework",
                 "laravel"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "time": "2016-09-09 16:33:59"
-=======
             "time": "2016-09-12 14:08:29"
->>>>>>> Admin List Users
-=======
-            "time": "2016-09-12 14:08:29"
->>>>>>> Filter Category And Paginate
         },
         {
             "name": "laravel/socialite",

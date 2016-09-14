@@ -9,25 +9,27 @@
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <div class="fix main_content_area">
-                <div class="fix centre main_content">
-                    <div class="fix home_content floatleft">
-                        <div class="fix single_home_content">
-                            <div class="fix single_home_content_container">
+            <div class="fix main-content-area">
+                <div class="fix centre main-content">
+                    <div class="fix home-content floatleft">
+                        <div class="fix single-home-content">
+                            <div class="fix single-home-content-container">
                                 <h2><i class="fa fa-angle-double-down"></i> {{ $categoryTitle }} </h2>
                                 @foreach ($lessons as $key => $lesson)
 
-                                <div class="fix single_content floatleft">
+                                <div class="fix single-content floatleft">
                                     <img src="http://www.lawnsciencesouthmanchester.co.uk/images/blog/weeds/Daisy_flower.jpg"/>
-                                    <h2>{{ $lesson->name }} </h2>
+                                    <a href="{{ action('LessonsController@show', ['id' => $lesson->id]) }}">
+                                        <h2>{{ $lesson->name }} </h2>
+                                    </a>
                                 </div>
                                 @endforeach
                             </div>
                             {!! $lessons->appends(array_except(Request::query(), 'wordlist_page', 'page'))->render() !!}
                         </div>
 
-                        <div class="fix single_home_blog_content">
-                            <div class="fix single_blog_content_container">
+                        <div class="fix single-home-blog-content">
+                            <div class="fix single-blog-content_container">
                                 <h2><i class="fa fa-hand-o-down"></i> {{ trans('homepage.word_menu') }} <a href="" class="floatright">{{ trans('homepage.see_all') }} <i class="fa fa-angle-double-right"></i></a></h2>
                                 <div class="row">
                                     <section class="content">
@@ -124,8 +126,8 @@
                             </div>
                         </div>
                     </div> <!-- End home content-->
-                    <div class="fix home_content_sidebar floatright">
-                        <div class="home_single_sidebar">
+                    <div class="fix home-content-sidebar floatright">
+                        <div class="home-single-sidebar">
                             <h2><i class="fa fa-bars"></i> {{ trans('homepage.category_menu') }}</h2>
                             {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal', 'id' => 'category-menu']) }}
                                 {{ Form::hidden('lessonType', config('word.filter.category_lesson'), ['class' => 'form-control']) }}
