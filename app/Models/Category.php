@@ -15,4 +15,9 @@ class Category extends Model
         'description',
         'photo'
     ];
+
+    public function getPhotoUrl()
+    {
+        return asset(config('common.category.path.photo_url') . $this->photo);
+    }
 }
