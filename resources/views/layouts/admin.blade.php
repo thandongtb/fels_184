@@ -32,7 +32,7 @@
 <body>
     <div id="wrapper">
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -130,20 +130,6 @@
                                 </li>
                                 <li>
                                     <a href="{{ URL('admin/words/create') }}">{{ trans('admin/users.create_words') }}</a>
-                                </li>
-
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-
-                        <li>
-                            <a href="#"><i class="fa fa-check-square-o fa-fw"></i> {{ trans('admin/users.manage_answers') }}<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{ URL('admin/answers') }}">{{ trans('admin/users.all_answers') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL('admin/answers/create') }}">{{ trans('admin/users.create_answers') }}</a>
                                 </li>
 
                             </ul>

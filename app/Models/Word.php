@@ -16,6 +16,11 @@ class Word extends Model
 
     public function answers()
     {
-        return $this->hasMany('App\Models\Answer');
+        return $this->hasMany(Answer::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

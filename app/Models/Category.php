@@ -20,4 +20,9 @@ class Category extends Model
     {
         return asset(config('common.category.path.photo_url') . $this->photo);
     }
+
+    public function words()
+    {
+        return $this->hasMany(Word::class);
+    }
 }
