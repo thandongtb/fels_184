@@ -63,4 +63,5 @@ return [
     'change_password_error' => 'Change Password Failed',
     'change_password_success' => 'Change Password Successful',
     'change_password_error_old_password' => 'Old Password Not Match',
+    'is-follow' => 'Is Following',
 ];

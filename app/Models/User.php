@@ -67,8 +67,29 @@ class User extends Authenticatable
         return $this->password == null;
     }
 
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function isFollowedByAnother(User $anotherUser)
+    {
+        return $anotherUser->followings()->where('followed_id', $this->id)->first();
+    }
+
+    public function isFollowingAnother(User $anotherUser)
+    {
+        return $anotherUser->followers()->where('follower_id', $this->id)->first();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'relationships', 'followed_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'relationships', 'follower_id', 'followed_id');
     }
 }

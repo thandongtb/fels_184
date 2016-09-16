@@ -31,7 +31,13 @@ Route::resource('word', 'WordsController');
 
 Route::resource('user', 'UsersController');
 
+Route::resource('home/follow', 'RelationshipsController');
+
 Route::get('user/change-password/{id}', 'UsersController@getResetPasswordForm');
+
+Route::get('user/following/{id}', 'UsersController@showFollowingUser');
+
+Route::get('user/follower/{id}', 'UsersController@showUserFollowers');
 
 Route::post('user/change-password', 'UsersController@resetPasssword');
 

@@ -10,8 +10,8 @@ return [
         'normal' => 5,
     ],
     'user' => [
-        'search' => 5,
-        'normal' => 5,
+        'search' => 10,
+        'normal' => 10,
     ],
     'comment' => [
         'search' => 10,

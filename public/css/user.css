@@ -1,0 +1,13 @@
+.follow {
+    font-size: 35px;
+    color: #2EFE64;
+}
+
+.unfollow {
+    font-size: 25px;
+    color: #B40404;
+}
+
+.btn-follow {
+    cursor: pointer;
+}
