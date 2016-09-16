@@ -13,6 +13,10 @@ return [
     |
     */
 
+    'to_admin_page' => 'Go to Admin Page',
+    'user_profile' => 'User Profile',
+    'type_register_normal' => 'Normal Register',
+    'type_register_title' => 'Type Of Register',
     'dashboard' => 'Dashboard',
     'login' => 'Login',
     'logout' => 'Logout',
@@ -30,6 +34,7 @@ return [
     'learned_word' => 'Learned Words',
     'unlearned_word' => 'Unlearned Words',
     'select_category' => 'Select Category',
+    'error_title' => 'Error : ',
     'type' => [
         'all' => 'Alphabel',
         'new' => 'New Words',

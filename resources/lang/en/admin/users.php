@@ -55,4 +55,12 @@ return [
     'number' => 'Number',
     'your_name' => 'Your Name',
     'your_email' => 'Your Email',
+    'change_password' => 'Change Password',
+    'change_password_title' => 'Change Your Password',
+    'old_password' => 'Old Password',
+    'new_password' => 'New Password',
+    'confirm_password_user' => 'Confirm Password',
+    'change_password_error' => 'Change Password Failed',
+    'change_password_success' => 'Change Password Successful',
+    'change_password_error_old_password' => 'Old Password Not Match',
 ];
