@@ -8,6 +8,9 @@ use App\Models\Word;
 use App\Models\Answer;
 use Auth;
 use DB;
+use App\Http\Requests\CreateWordRequest;
+use App\Http\Requests\UpdateWordRequest;
+use Carbon\Carbon;
 
 class WordsController extends Controller
 {
@@ -30,7 +33,9 @@ class WordsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::pluck('name', 'id');
+
+        return view('admin.word-create', compact('categories'));
     }
 
     /**
@@ -39,9 +44,40 @@ class WordsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateWordRequest $request)
     {
-        //
+        $wordData = [
+            'content' => $request->word_content,
+            'category_id' => $request->category_id,
+        ];
+
+        try {
+            DB::beginTransaction();
+            $word = Word::create($wordData);
+            $answers = [];
+
+            foreach ($request['answers']['content'] as $key => $content) {
+                $answers[] = [
+                    'content' => $content,
+                    'is_correct' => $request['answers']['is_correct'][$key],
+                    'word_id' => $word->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
+
+            if ($answers) {
+                Answer::insert($answers);
+            }
+            DB::commit();
+
+            return redirect()->action('Admin\WordsController@index')
+                             ->withSuccess(trans('admin/words.word_create_success'));
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->withErrors(trans('admin/words.word_create_fail'));
+        }
     }
 
     /**
@@ -70,7 +106,17 @@ class WordsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $word = Word::with('category')->find($id);
+
+        if ($word) {
+            $categories = Category::pluck('name');
+            $answers = $word->answers;
+
+            return view('admin.word-update', compact('word', 'categories', 'answers'));
+        }
+
+        return redirect()->action('Admin\WordsController@index')
+                         ->withErrors(trans('admin/words.error_message'));
     }
 
     /**
@@ -80,9 +126,31 @@ class WordsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateWordRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $word = Word::with('answers')->find($id);
+            $word->update([
+                'content' => $request->word_content,
+                'category_id' => $request->category_id,
+            ]);
+
+            foreach ($request['answers']['content'] as $key => $content) {
+                $word->answers[$key]->update([
+                    'content' => $content,
+                    'is_correct' => $request['answers']['is_correct'][$key],
+                ]);
+            }
+            DB::commit();
+
+            return redirect()->action('Admin\WordsController@index')
+                             ->withSuccess(trans('admin/words.word_update_success'));
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->withErrors(trans('admin/words.word_update_fail'));
+        }
     }
 
     /**

@@ -27,6 +27,8 @@
     {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') !!}
     {!! Html::style('https://fonts.googleapis.com/css?family=Lato:100,300,400,700') !!}
 
+    @yield('style')
+
 </head>
 
 <body>
@@ -173,6 +175,8 @@
 
     <!-- Custom Theme JavaScript -->
     {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.js') !!}
+
+    @yield('script')
 
 </body>
 
