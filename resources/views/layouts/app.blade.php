@@ -77,11 +77,11 @@
                         </li>
                     @endif
                 </ul>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ URL('home') }}">{{ trans('homepage.home_menu') }}</a></li>
-                     <li><a href="javascript:;">{{ trans('homepage.category_menu') }}</a></li>
-                    <li><a href="javascript:;">{{ trans('homepage.lesson_menu') }}</a></li>
-                    <li><a href="javascript:;">{{ trans('homepage.word_menu') }}</a></li>
+                <ul class="nav navbar-nav" id="top-navbar">
+                    <li id="nav-home" class="active"><a href="{{ URL('home') }}">{{ trans('homepage.home_menu') }}</a></li>
+                    <li id="nav-category"><a href="javascript:;" >{{ trans('homepage.category_menu') }}</a></li>
+                    <li id="nav-lesson"><a href="javascript:;" >{{ trans('homepage.lesson_menu') }}</a></li>
+                    <li id="nav-wordlist"><a href="javascript:;" >{{ trans('homepage.word_menu') }}</a></li>
                 </ul>
             </div>
         </div>
