@@ -32,7 +32,7 @@
                                             <td>
                                                 <div class="media col-md-12">
                                                     <div class="col-md-3">
-                                                        <a href="#">
+                                                        <a href="{{ action('WordsController@show', ['id' => $result->answer->word_id]) }}">
                                                             {{ $result->answer->word->content }}
                                                         </a>
                                                     </div>

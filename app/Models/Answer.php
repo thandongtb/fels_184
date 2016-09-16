@@ -21,6 +21,11 @@ class Answer extends Model
         return $this->belongsTo('App\Models\Word');
     }
 
+    public function results()
+    {
+        return $this->hasMany('App\Models\Result');
+    }
+
     public function isCorrect()
     {
         return $this->is_correct == config('word.answer.correct');

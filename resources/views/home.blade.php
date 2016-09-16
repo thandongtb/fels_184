@@ -83,7 +83,7 @@
                                                     <div class="table-container">
                                                         <table class="table table-filter display" id="table-filter">
                                                             <tbody>
-                                                            @foreach ($words as $key => $word)
+                                                            @foreach ($filterResults as $key => $filterResult)
                                                                 <tr data-status="{{ $type }}">
                                                                     <td>
                                                                         <a href="javascript:;" class="star">
@@ -94,18 +94,26 @@
                                                                         <div class="media col-md-12">
                                                                             <div class="col-md-3">
                                                                                 <a href="#" class="{{ $type }}">
-                                                                                    {{ $word->content }}
+                                                                                    @if ($type == config('word.filter.ulearn') || $type == config('word.filter.learned'))
+                                                                                        {{ $filterResult->word->content }}
+                                                                                    @else
+                                                                                        {{ $filterResult->content }}
+                                                                                    @endif
                                                                                 </a>
                                                                             </div>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right"></span>
                                                                                 <h4 class="title text-justify">
                                                                                     <i>
-                                                                                        @foreach ($word->answers as $key => $answer)
-                                                                                            @if ($answer->is_correct == config('word.answer.correct'))
-                                                                                                {{ $answer->content }}
-                                                                                            @endif
-                                                                                        @endforeach()
+                                                                                        @if ($type == config('word.filter.ulearn') || $type == config('word.filter.learned'))
+                                                                                            {{ $filterResult->content }}
+                                                                                        @else
+                                                                                            @foreach ($filterResult->answers as $key => $answer)
+                                                                                                @if ($answer->isCorrect())
+                                                                                                    {{ $answer->content }}
+                                                                                                @endif
+                                                                                            @endforeach()
+                                                                                        @endif
                                                                                     </i>
                                                                                     <span class="pull-right pagado">{{ $type }}</span>
                                                                                 </h4>
@@ -116,7 +124,7 @@
                                                                 @endforeach()
                                                             </tbody>
                                                         </table>
-                                                        {!! $words->appends(array_except(Request::query(), 'wordlist_page', 'page'))->render() !!}
+                                                        {!! $filterResults->appends(array_except(Request::query(), 'wordlist_page', 'page'))->render() !!}
                                                     </div>
                                                 </div>
                                             </div>
