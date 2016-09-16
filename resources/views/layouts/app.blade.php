@@ -89,7 +89,7 @@
                     <li id="nav-home" class="active"><a href="{{ URL('home') }}">{{ trans('homepage.home_menu') }}</a></li>
                     <li id="nav-user"><a href="{{ action('UsersController@index') }}" >{{ trans('homepage.user_list_menu') }}</a></li>
                     <li id="nav-lesson"><a href="javascript:;" >{{ trans('homepage.lesson_menu') }}</a></li>
-                    <li id="nav-wordlist"><a href="javascript:;" >{{ trans('homepage.word_menu') }}</a></li>
+                    <li id="nav-activity"><a href="{{ action('ActivitiesController@index') }}" >{{ trans('homepage.activity_menu') }}</a></li>
                 </ul>
             </div>
         </div>

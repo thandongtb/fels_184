@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LessonWord;
 use App\Models\Result;
+use App\Models\Answer;
+use App\Models\Activity;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Response;
@@ -33,6 +35,7 @@ class ResultsController extends Controller
         DB::beginTransaction();
         try {
             $data = [];
+            $activity = [];
 
             foreach ($results as $key => $value) {
                 $data[] = [
@@ -42,8 +45,32 @@ class ResultsController extends Controller
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ];
+
+                try {
+                    $answer = Answer::findOrFail($value);
+
+                    if ($answer->is_correct) {
+                        $activity[] = [
+                            'user_id' => $userId,
+                            'target_id' => config('activity.target_id.new_word'),
+                            'object_id' => Answer::with('word')->find($value)->word->id,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ];
+                    }
+                } catch (ModelNotFoundException $ex) {
+                    return redirect()->back()->withErrors($ex->getMessage());
+                }
             }
+
             Result::insert($data);
+            Activity::create([
+                'user_id' => $userId,
+                'target_id' => config('activity.target_id.new_lesson'),
+                'object_id' => $lessonId,
+            ]);
+            Activity::insert($activity);
+
             DB::commit();
 
             return Response::json([

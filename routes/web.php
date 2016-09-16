@@ -33,13 +33,19 @@ Route::resource('user', 'UsersController');
 
 Route::resource('home/follow', 'RelationshipsController');
 
+Route::resource('activity', 'ActivitiesController');
+
 Route::get('user/change-password/{id}', 'UsersController@getResetPasswordForm');
 
 Route::get('user/following/{id}', 'UsersController@showFollowingUser');
 
 Route::get('user/follower/{id}', 'UsersController@showUserFollowers');
 
-Route::post('user/change-password', 'UsersController@resetPasssword');
+Route::get('user/following-activities/{id}', 'ActivitiesController@showFollowingUserActivities');
+
+Route::get('user/follower-activities/{id}', 'ActivitiesController@showUserFollowersActivities');
+
+Route::post('user/change-password', 'ActivitiesController@resetPasssword');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/', 'AdminController');

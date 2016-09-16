@@ -27,6 +27,9 @@
                 <a href="{{ action('UsersController@showUserFollowers', ['id' => Auth::user()->id]) }}">
                     <button class="btn btn-success">{{ trans('homepage.user_follower_list') }}</button>
                 </a>
+                <a href="{{ action('UsersController@index') }}">
+                    <button class="btn btn-danger">{{ trans('homepage.all_user_list') }}</button>
+                </a>
             </div>
             <hr>
             <div class="panel panel-default">
@@ -49,7 +52,7 @@
                             @foreach ($users as $key => $user)
                                 <tr class="odd gradeX">
                                     <td>{{ $user->id }}</td>
-                                    <td><a href="{{ URL('admin/users/' . $user->id) }}">{{ $user->name }}</a></td>
+                                    <td><a href="{{ URL('user/' . $user->id) }}">{{ $user->name }}</a></td>
                                     <td>{{ $user->email }}</td>
                                     <td><a href="{{ action('UsersController@showFollowingUser', ['id' => $user->id]) }}">{{ trans('homepage.see_more') }}</a></td>
                                     <td><a href="{{ action('UsersController@showUserFollowers', ['id' => $user->id]) }}">{{ trans('homepage.see_more') }}</a></td>

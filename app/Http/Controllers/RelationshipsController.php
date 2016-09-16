@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Activity;
 use Auth;
 use Response;
 use App\Http\Requests;
+use Carbon\Carbon;
 
 class RelationshipsController extends Controller
 {
@@ -28,6 +30,12 @@ class RelationshipsController extends Controller
                     $currentUser->followings()->attach($request->follower_id);
                 }
 
+                Activity::create([
+                    'user_id' => $currentUser->id,
+                    'target_id' => config('activity.target_id.follow'),
+                    'object_id' => $request->follower_id,
+                ]);
+
                 return Response::json([
                     'success' => true,
                     'message' => trans('homepage.follow-message.follow_success'),
@@ -38,6 +46,11 @@ class RelationshipsController extends Controller
         }
 
         $result = $currentUser->followings()->detach($request->follower_id);
+        Activity::create([
+            'user_id' => $currentUser->id,
+            'target_id' => config('activity.target_id.unfollow'),
+            'object_id' => $request->follower_id,
+        ]);
 
         return Response::json([
             'success' => $result,
