@@ -13,4 +13,9 @@ class Lesson extends Model
         'name',
         'category_id'
     ];
+
+    public function category()
+    {
+        return $this->belongTo('App\Models\Category');
+    }
 }
