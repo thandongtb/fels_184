@@ -139,7 +139,34 @@ $(document).ready(function () {
         //AJAX to save result
 
         $('#saveButton').click(function(e) {
-            alert('Have Submit lesson');
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append('result', result);
+            formData.append('lesson_id', $('#data-lesson').data('lesson'));
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/result',
+                processData : false,
+                cache: false,
+                contentType: false,
+                method:'POST',
+                data : formData,
+                success: function(data) {
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                        window.location.reload();
+                    }
+                },
+                error: function() {}
+            });
         });
 
     }

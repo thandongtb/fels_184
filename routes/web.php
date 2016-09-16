@@ -25,6 +25,8 @@ Route::get('social/callback/{driver}', 'Auth\LoginController@handleProviderCallb
 
 Route::resource('lesson', 'LessonsController');
 
+Route::resource('result', 'ResultsController');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/', 'AdminController');
     Route::group(['namespace' => 'Admin'], function () {
