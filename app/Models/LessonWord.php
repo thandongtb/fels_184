@@ -14,4 +14,14 @@ class LessonWord extends Model
         'lesson_id',
         'word_id'
     ];
+
+    public function lesson()
+    {
+        return $this->belongsTo('App\Models\Lesson');
+    }
+
+    public function word()
+    {
+        return $this->belongsTo('App\Models\Word');
+    }
 }

@@ -20,4 +20,9 @@ class Answer extends Model
     {
         return $this->belongsTo('App\Models\Word');
     }
+
+    public function isCorrect()
+    {
+        return $this->is_correct == config('word.answer.correct');
+    }
 }
