@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Word;
+use App\Models\Answer;
 use Auth;
+use DB;
 
-class AdminController extends Controller
+class WordsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +18,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $totalUsers = User::count();
-        $totalCategories = Category::count();
-        $totalWords = Word::count();
+        $words = Word::with('category')->orderby('id')->paginate(config('paginate.word.normal'));
 
-        return view('admin.index', compact('totalUsers', 'totalCategories', 'totalWords'));
+        return view('admin.word-manager', compact('words'));
     }
 
     /**
@@ -54,7 +52,14 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $word = Word::find($id);
+
+        if ($word) {
+            return view('admin.word-detail', compact('word'));
+        }
+
+        return redirect()->action('Admin\WordsController@index')
+                         ->withErrors(trans('admin/words.error_message'));
     }
 
     /**
@@ -88,6 +93,19 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            Answer::where('word_id', $id)->delete();
+            Word::destroy($id);
+            DB::commit();
+
+            return redirect()->action('Admin\WordsController@index')
+                             ->withSuccess(trans('admin/words.word_delete_success'));
+        }
+        catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->withErrors(trans('admin/words.word_delete_fail'));
+        }
     }
 }
