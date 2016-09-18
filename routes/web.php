@@ -27,6 +27,10 @@ Route::resource('lesson', 'LessonsController');
 
 Route::resource('result', 'ResultsController');
 
+Route::resource('activity', 'ActivitiesController');
+
+Route::resource('word', 'WordsController');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/', 'AdminController');
     Route::group(['namespace' => 'Admin'], function () {
