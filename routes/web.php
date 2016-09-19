@@ -27,9 +27,13 @@ Route::resource('lesson', 'LessonsController');
 
 Route::resource('result', 'ResultsController');
 
-Route::resource('activity', 'ActivitiesController');
-
 Route::resource('word', 'WordsController');
+
+Route::resource('user', 'UsersController');
+
+Route::get('user/change-password/{id}', 'UsersController@getResetPasswordForm');
+
+Route::post('user/change-password', 'UsersController@resetPasssword');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/', 'AdminController');
