@@ -25,4 +25,9 @@ class Category extends Model
     {
         return $this->hasMany(Word::class);
     }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }

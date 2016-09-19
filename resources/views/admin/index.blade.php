@@ -66,12 +66,12 @@
                             <i class="fa fa-file-text-o fa-3x"></i>
                         </div>
                         <div class="col-xs-10 text-right">
-                            <div class="huge">124</div>
+                            <div class="huge">{{ $totalLessons }}</div>
                             <div>{{ trans('admin/users.manage_lessons') }}</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{{ action('Admin\LessonsController@index') }}">
                     <div class="panel-footer">
                         <span class="pull-left">{{ trans('admin/users.view_details') }}</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
