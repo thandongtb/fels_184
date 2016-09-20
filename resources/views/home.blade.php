@@ -20,7 +20,7 @@
                                 <div class="fix single-content floatleft">
                                     <img src="http://www.lawnsciencesouthmanchester.co.uk/images/blog/weeds/Daisy_flower.jpg"/>
                                     <a href="{{ action('LessonsController@show', ['id' => $lesson->id]) }}">
-                                        <h2>{{ $lesson->name }} </h2>
+                                        <h2>{{ $lesson->name }}</h2>
                                     </a>
                                 </div>
                                 @endforeach
@@ -136,7 +136,7 @@
                     </div> <!-- End home content-->
                     <div class="fix home-content-sidebar floatright">
                         <div class="home-single-sidebar">
-                            <h2><i class="fa fa-bars"></i> {{ trans('homepage.category_menu') }}</h2>
+                            <h2><i class="fa fa-bars"></i> {{ trans('homepage.select_category') }}</h2>
                             {{ Form::open(['url' => '/home', 'method' => 'GET', 'class' => 'form-horizontal', 'id' => 'category-menu']) }}
                                 {{ Form::hidden('lessonType', config('word.filter.category_lesson'), ['class' => 'form-control']) }}
                                 {{ Form::hidden('page', $page, ['class' => 'form-control']) }}

@@ -1,22 +1,23 @@
 {
-    "name": "E Learning",
-    "description": "E Learning Training Project in Framgia",
-    "main": "",
-    "authors": [
-        "Pham Van Toan <phamvantoan1993@gmail.com>"
-    ],
-    "license": "MIT",
-    "homepage": "https://github.com/thandongtb/fels_184",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "bootstrap": "^3.3.7",
-        "bootstrap-social": "^5.0.0",
-        "owl.carousel": "^2.1.6"
-    }
+  "name": "E Learning",
+  "description": "E Learning Training Project in Framgia",
+  "main": "",
+  "authors": [
+    "Pham Van Toan <phamvantoan1993@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/thandongtb/fels_184",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-social": "^5.0.0",
+    "owl.carousel": "^2.1.6",
+    "toastr": "^2.1.3"
+  }
 }

@@ -13,7 +13,7 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('user');
     }
 
     protected function validator(array $data)
@@ -29,6 +29,18 @@ class UsersController extends Controller
         return Validator::make($data, [
             'password' => 'required|min:6|confirmed',
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = User::orderby('name')->paginate(config('paginate.user.normal'));
+
+        return view('user-list', compact('users'));
     }
 
     /**
@@ -65,6 +77,38 @@ class UsersController extends Controller
         }
     }
 
+    public function showFollowingUser($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $followingUsers = $user->followings()->paginate(config('paginate.user.normal'));
+
+            return view('user-list', [
+                'user' => $user,
+                'title' => trans('homepage.list_user_foolowing_title'),
+                'users' => $followingUsers,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+    }
+
+    public function showUserFollowers($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $followerUsers = $user->followers()->paginate(config('paginate.user.normal'));
+
+            return view('user-list', [
+                'user' => $user,
+                'title' => trans('homepage.list_user_foolower_title'),
+                'users' => $followerUsers,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -82,12 +126,12 @@ class UsersController extends Controller
         }
 
         try {
-            $result = User::find($id)->update($data);
+            $result = User::findOrFail($id)->update($data);
 
             if ($result) {
                 return redirect()->to(action('UsersController@show', ['id' => $id]));
             }
-        } catch (Exception $e) {
+        } catch (ModelNotFoundException $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }
     }

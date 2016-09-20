@@ -23,7 +23,7 @@ return [
     'register' => 'Register',
     'toggle' => 'Toggle Navigation',
     'home_menu' => 'Home',
-    'category_menu' => 'Categories',
+    'user_list_menu' => 'Users List',
     'lesson_menu' => 'Lesson',
     'word_menu' => 'Word Lists',
     'title_category' => 'All Categories',
@@ -35,6 +35,10 @@ return [
     'unlearned_word' => 'Unlearned Words',
     'select_category' => 'Select Category',
     'error_title' => 'Error : ',
+    'user_following_list' => 'User Following List',
+    'user_follower_list' => 'User Follower List',
+    'list_user_foolowing_title' => 'User Following List of ',
+    'list_user_foolower_title' => 'User Follower List of ',
     'type' => [
         'all' => 'Alphabel',
         'new' => 'New Words',
@@ -48,5 +52,15 @@ return [
         'result-of' => 'Result of :',
         'learned' => 'You have learned this lesson',
         'lesson' => 'Lesson :',
-    ]
+    ],
+    'follow-message' => [
+        'follow_success' => 'Follow Successfull',
+        'follow_fail' => 'Follow Failed',
+        'unfollow_success' => 'Unfollow Successfull',
+        'unfollow_fail' => 'Unfollow Failed',
+    ],
+    'list-user' => [
+        'title' => 'List User',
+    ],
+    'see_more' => 'See More',
 ];

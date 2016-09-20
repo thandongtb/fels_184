@@ -64,7 +64,6 @@
                 <div class="panel-footer text-center">
                     {!! link_to_route('user.edit', trans('admin/users.edit'), [$user->id], ['class' => 'btn btn-success']) !!}
                 </div>
-
             </div>
         </div>
     </div>
