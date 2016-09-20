@@ -88,4 +88,22 @@ class HomeService
             ->where('is_correct', config('word.answer.correct'))
             ->paginate(config('paginate.word.normal'), ['*'], 'wordlist_page');
     }
+
+    public static function countLearnedWordAnswers($userId)
+    {
+        return Answer::whereIn('id', Result::where('user_id', $userId)
+            ->pluck('answer_id'))
+            ->with('word')
+            ->where('is_correct', config('word.answer.correct'))
+            ->count();
+    }
+
+    public static function counttUnlearnedWordAnswers($userId)
+    {
+        return Answer::whereIn('id', Result::where('user_id', $userId)
+            ->pluck('answer_id'))
+            ->with('word')
+            ->where('is_correct', config('word.answer.not_correct'))
+            ->count();
+    }
 }

@@ -143,6 +143,31 @@
                                 {{ Form::select('category', $categories, null, ['class' => 'form-control']) }}
                             {{ Form::close() }}
                         </div>
+
+                        <div class="home-single-sidebar">
+                            <h2><i class="fa fa-bars"></i> {{ trans('homepage.sumary_title') }}</h2>
+
+                            <div class="fix home-sidebar-top-apps">
+                                <h3>
+                                    <a href="{{ action('UsersController@showFollowingUser', ['id' => Auth::user()->id]) }}">
+                                        {{ trans('homepage.number_following') }}
+                                    </a>
+                                    {{ $numberFollowings }}
+                                </h3>
+                                <h3>
+                                    <a href="{{ action('UsersController@showUserFollowers', ['id' => Auth::user()->id]) }}">
+                                        {{ trans('homepage.number_follower') }}
+                                    </a>
+                                    {{ $numberFollowers }}
+                                </h3>
+                                <h3>
+                                    {{ trans('homepage.number_learned_word') . $numberLearnedWords}}
+                                </h3>
+                                <h3>
+                                    {{ trans('homepage.number_unlearned_word') . $numberUnlearnedWords}}
+                                </h3>
+                            </div>
+                        </div>
                     </div> <!-- End home sidebar-->
                 </div>
             </div> <!-- End main content-->
