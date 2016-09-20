@@ -10,6 +10,13 @@ class WordsController extends Controller
 {
     public function show($id)
     {
-        return view('home');
+        $word = Word::find($id);
+
+        if ($word) {
+            return view('word-detail', compact('word'));
+        }
+
+        return redirect()->action('HomeController@index')
+                         ->withErrors(trans('admin/words.error_message'));
     }
 }

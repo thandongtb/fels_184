@@ -27,13 +27,13 @@
                             </div>
                             {!! $lessons->appends(array_except(Request::query(), 'wordlist_page', 'page'))->render() !!}
                         </div>
-
+                        <hr>
                         <div class="fix single-home-blog-content">
                             <div class="fix single-blog-content_container">
-                                <h2><i class="fa fa-hand-o-down"></i> {{ trans('homepage.word_menu') }} <a href="" class="floatright">{{ trans('homepage.see_all') }} <i class="fa fa-angle-double-right"></i></a></h2>
+                                <h2><i class="fa fa-hand-o-down"></i> {{ trans('homepage.word_menu') }}</h2>
                                 <div class="row">
                                     <section class="content">
-                                        <div class="col-md-8 col-md-offset-2">
+                                        <div class="col-md-10 col-md-offset-1">
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
                                                     <div class="pull-right">

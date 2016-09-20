@@ -29,4 +29,8 @@ return [
         'search' => 5,
         'normal' => 10,
     ],
+    'activity' => [
+        'search' => 5,
+        'normal' => 10,
+    ],
 ];
