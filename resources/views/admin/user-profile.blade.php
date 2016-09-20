@@ -22,50 +22,26 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://pickaface.net/gallery/avatar/unr_hehe_160911_2042_qfuo9sh.png" class="img-circle img-responsive"> </div>
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{{ $user->getAvatarUrl() }}" class="img-circle img-responsive"> </div>
                         <div class=" col-md-9 col-lg-9 ">
                             <table class="table table-user-information">
                                 <tbody>
                                     <tr>
                                         <td>{{ trans('admin/users.user_id') }}:</td>
-                                        <td>{{ $userData->id }}</td>
+                                        <td>{{ $user->id }}</td>
                                     </tr>
                                     <tr>
                                         <td>{{ trans('admin/users.name') }}:</td>
-                                        <td>{{ $userData->name }}</td>
+                                        <td>{{ $user->name }}</td>
                                     </tr>
                                     <tr>
                                         <td>{{ trans('admin/users.email') }}:</td>
-                                        <td><a href="mailto:{{ $userData->email }}">{{ $userData->email }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ trans('admin/users.user_follower') }}:</td>
-                                        <td><a href="#">{{ trans('admin/users.number') }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ trans('admin/users.user_followed') }}:</td>
-                                        <td><a href="#">{{ trans('admin/users.number') }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ trans('admin/users.user_activities') }}:</td>
-                                        <td><a href="#">{{ trans('admin/users.number') }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ trans('admin/users.learned_lessons') }}:</td>
-                                        <td><a href="#">{{ trans('admin/users.number') }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ trans('admin/users.learned_words') }}:</td>
-                                        <td><a href="#">{{ trans('admin/users.number') }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ trans('admin/users.results') }}:</td>
-                                        <td><a href="#">{{ trans('admin/users.number') }}</a></td>
+                                        <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                     </tr>
                                     <tr>
                                         <td>{{ trans('admin/users.role') }}:</td>
                                         <td>
-                                            @if ($userData->isAdmin())
+                                            @if ($user->isAdmin())
                                                 {{ trans('admin/users.admin') }}
                                             @else
                                                 {{ trans('admin/users.user') }}
@@ -74,7 +50,33 @@
                                     </tr>
                                     <tr>
                                         <td>{{ trans('admin/users.create_at') }}:</td>
-                                        <td>{{ $userData->created_at }}</td>
+                                        <td>{{ $user->created_at }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ trans('admin/users.update_at') }}:</td>
+                                        <td>{{ $user->updated_at }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <a href="{{ action('Admin\UsersController@showFollowingUser',
+                                                ['id' => $user->id]) }}">
+                                                <button class="btn btn-info">
+                                                    {{ trans('admin/users.user_following') }}
+                                                </button>
+                                            </a>
+                                            <a href="{{ action('Admin\UsersController@showUserFollowers',
+                                                ['id' => $user->id]) }}">
+                                                <button class="btn btn-info">
+                                                    {{ trans('admin/users.user_follower') }}
+                                                </button>
+                                            </a>
+                                            <a href="{{ action('Admin\ActivitiesController@show',
+                                                ['id' => $user->id]) }}">
+                                                <button class="btn btn-info">
+                                                    {{ trans('admin/users.user_activities') }}
+                                                </button>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -86,12 +88,17 @@
                     <table>
                         <tr>
                             <td>
-                                {!! link_to_route('users.edit', trans('admin/users.edit'), [$userData->id], ['class' => 'btn btn-primary']) !!}
+                                {!! link_to_route('users.edit', trans('admin/users.edit'), [$user->id],
+                                    ['class' => 'btn btn-primary']) !!}
                             </td>
-                            @if (!$userData->isCurrent())
+                            @if (!$user->isAdmin())
                                 <td>
-                                    {!! Form::open(['method' => 'delete', 'route' => ['users.destroy', $userData->id] ]) !!}
-                                        {{ Form::button(trans('admin/users.delete'), ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm(trans('admin/users.delete_warning'))"]) }}
+                                    {!! Form::open(['method' => 'delete', 'route' => ['users.destroy', $user->id] ]) !!}
+                                        {{ Form::button(trans('admin/users.delete'), [
+                                            'type' => 'submit',
+                                            'class' => 'btn btn-danger',
+                                            'onclick' => 'return confirm("' . trans('admin/users.delete_warning') . '")'
+                                        ]) }}
                                     {{ Form::close() }}
                                 </td>
                             @endif

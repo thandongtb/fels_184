@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Word;
+use App\Models\Answer;
 use Auth;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\CreateCategoryRequest;
+use DB;
 
 class CategoriesController extends Controller
 {
@@ -136,18 +139,22 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        try {
+            DB::beginTransaction();
+            $category = Category::with('words')->find($id);
+            $wordsId = $category->words()->pluck('id');
+            Answer::whereIn('word_id', $wordsId)->delete();
+            Word::whereIn('id', $wordsId)->delete();
+            $category->delete();
+            DB::commit();
 
-        if ($category) {
-            if ($category->delete()) {
-                return redirect()->action('Admin\CategoriesController@index')
+            return redirect()->action('Admin\CategoriesController@index')
                                  ->withSuccess(trans('admin/categories.category_delete_success'));
-            }
+        }
+        catch (Exception $e) {
+            DB::rollBack();
 
             return redirect()->back()->withErrors(trans('admin/categories.category_delete_fail'));
         }
-
-        return redirect()->action('Admin\CategoriesController@index')
-                         ->withErrors(trans('admin/categories.error_message'));
     }
 }

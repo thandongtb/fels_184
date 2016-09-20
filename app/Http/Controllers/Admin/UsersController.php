@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Models\User;
 use Auth;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\CreateUserRequest;
 
 class UsersController extends Controller
 {
@@ -30,7 +31,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user-create');
     }
 
     /**
@@ -39,9 +40,29 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $configPath = config('common.user.path');
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->avatar;
+            $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
+            $avatar->move(public_path() . $configPath['avatar_url'], $fileName);
+        } else {
+            $fileName = $configPath['default_name_avatar'];
+        }
+
+        $input = $request->only('name', 'email', 'role');
+        $input['avatar'] = $fileName;
+        $input['password'] = bcrypt($request->password);
+
+        if (User::create($input)) {
+            return redirect()->action('Admin\UsersController@index')
+                             ->withSuccess(trans('admin/users.user_create_success'));
+        }
+
+        return redirect()->action('Admin\UsersController@show')
+                         ->withErrors(trans('admin/users.user_create_errors'));
     }
 
     /**
@@ -52,13 +73,14 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $userData = User::find($id);
+        $user = User::with('activities')->find($id);
 
-        if ($userData) {
-            return view('admin.user-profile', compact('userData'));
+        if ($user) {
+            return view('admin.user-profile', compact('user'));
         }
 
-        return redirect()->action('Admin\UsersController@index')->withErrors(trans('admin/users.error_message'));
+        return redirect()->action('Admin\UsersController@index')
+                         ->withErrors(trans('admin/users.error_message'));
     }
 
     /**
@@ -69,13 +91,14 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $userData = User::find($id);
+        $user = User::find($id);
 
-        if ($userData) {
-            return view('admin.user-update', compact('userData'));
+        if ($user) {
+            return view('admin.user-update', compact('user'));
         }
 
-        return redirect()->action('Admin\UsersController@index')->withErrors(trans('admin/users.error_message'));
+        return redirect()->action('Admin\UsersController@index')
+                         ->withErrors(trans('admin/users.error_message'));
     }
 
     /**
@@ -87,23 +110,37 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, $id)
     {
-        $userData = User::find($id);
+        $user = User::find($id);
+        $config = config('common.user.path');
 
-        if ($userData) {
-            $userData->update([
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->avatar;
+            $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
+            $avatar->move(public_path() . $config['avatar_url'], $fileName);
+        } else {
+            $fileName = $config['default_name_avatar'];
+        }
+
+        if ($user) {
+            $result = $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'role' => $request->role,
+                'password' => bcrypt($request->password),
+                'avatar' => $fileName,
             ]);
 
-            if ($userData->save()) {
-                return redirect()->action('Admin\UsersController@show', compact('userData'))->withSuccess(trans('admin/users.user_update_success'));
+            if ($result) {
+                return redirect()->action('Admin\UsersController@show', compact('user'))
+                                 ->withSuccess(trans('admin/users.user_update_success'));
             }
 
-            return redirect()->action('Admin\UsersController@show', compact('userData'))->withErrors(trans('admin/users.user_update_errors'));
+            return redirect()->action('Admin\UsersController@show', compact('user'))
+                             ->withErrors(trans('admin/users.user_update_errors'));
         }
 
-        return redirect()->action('Admin\UsersController@index')->withErrors(trans('admin/users.error_message'));
+        return redirect()->action('Admin\UsersController@index')
+                         ->withErrors(trans('admin/users.error_message'));
     }
 
     /**
@@ -114,16 +151,50 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $userData = User::find($id);
+        $user = User::find($id);
 
-        if ($userData) {
-            if ($userData->delete()) {
-                return redirect()->action('Admin\UsersController@index')->withSuccess(trans('admin/users.user_delete_success'));
+        if ($user) {
+            if ($user->delete()) {
+                return redirect()->action('Admin\UsersController@index')
+                                 ->withSuccess(trans('admin/users.user_delete_success'));
             }
 
             return redirect()->back()->withErrors(trans('admin/users.user_delete_fail'));
         }
 
-        return redirect()->action('Admin\UsersController@index')->withErrors(trans('admin/users.error_message'));
+        return redirect()->action('Admin\UsersController@index')
+                         ->withErrors(trans('admin/users.error_message'));
+    }
+
+    public function showFollowingUser($id)
+    {
+        try {
+            $user = User::find($id);
+            $followingUsers = $user->followings()->paginate(config('paginate.user.normal'));
+
+            return view('admin.user-following', [
+                'user' => $user,
+                'title' => trans('admin/users.list_user_foolowing_title'),
+                'users' => $followingUsers,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+    }
+
+    public function showUserFollowers($id)
+    {
+        try {
+            $user = User::find($id);
+            $followerUsers = $user->followers()->paginate(config('paginate.user.normal'));
+
+            return view('admin.user-follower', [
+                'user' => $user,
+                'title' => trans('admin/users.list_user_foolower_title'),
+                'users' => $followerUsers,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 }

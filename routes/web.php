@@ -54,5 +54,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::resource('categories', 'CategoriesController');
         Route::resource('words', 'WordsController');
         Route::resource('lessons', 'LessonsController');
+        Route::resource('activities', 'ActivitiesController');
+        Route::get('user/following/{id}', 'UsersController@showFollowingUser');
+        Route::get('user/follower/{id}', 'UsersController@showUserFollowers');
     });
 });

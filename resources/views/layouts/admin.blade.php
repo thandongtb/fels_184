@@ -42,20 +42,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ URL('/admin') }}">{{ trans('admin/users.admin') }}</a>
+                <a class="navbar-brand" href="{{ action('AdminController@index') }}">{{ trans('admin/users.admin') }}</a>
+                <a class="navbar-brand" href="{{ action('HomeController@index') }}">{{ trans('admin/users.home') }}</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    {{ Auth::user()->name }} <span class="caret"></span></a>
+                        {{ Auth::user()->name }}<span class="caret"></span>
+                    </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ URL('admin/users/' . Auth::user()->id) }}"><i class="fa fa-user fa-fw"></i> {{ trans('admin/users.user_profile_title') }}</a>
+                        <li>
+                            <a href="{{ action('Admin\UsersController@show', ['id' => Auth::user()->id]) }}">
+                                <i class="fa fa-user fa-fw"></i>{{ trans('admin/users.user_profile_title') }}
+                            </a>
                         </li>
                         <li>
-                            <a href="{{ url('/logout') }}"
+                            <a href="{{ action('Auth\LoginController@logout') }}"
                                 onclick="event.preventDefault();
                                          $('#logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i>
                                 {{ trans('homepage.logout') }}
@@ -87,51 +92,40 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans('admin/users.manage_users') }}<span class="fa arrow"></span></a>
+                            <a href="{{ action('Admin\UsersController@index') }}">
+                                <i class="fa fa-users fa-fw"></i>
+                                {{ trans('admin/users.manage_users') }}<span class="fa arrow"></span>
+                            </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ URL('admin/users') }}">{{ trans('admin/users.all_users') }}</a>
+                                    <a href="{{ action('Admin\UsersController@index') }}">
+                                        {{ trans('admin/users.all_users') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ action('Admin\UsersController@create') }}">
+                                        {{ trans('admin/users.create') }}
+                                    </a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i> {{ trans('admin/users.manage_categories') }}<span class="fa arrow"></span></a>
+                            <a href="{{ action('Admin\CategoriesController@index') }}">
+                                <i class="fa fa-tasks fa-fw"></i>
+                                {{ trans('admin/users.manage_categories') }}<span class="fa arrow"></span>
+                            </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ URL('admin/categories') }}">{{ trans('admin/users.all_categories') }}</a>
+                                    <a href="{{ action('Admin\CategoriesController@index') }}">
+                                        {{ trans('admin/users.all_categories') }}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL('admin/categories/create') }}">{{ trans('admin/users.create_categories') }}</a>
-                                </li>
-
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-
-                        <li>
-                            <a href="#"><i class="fa fa-file-text-o fa-fw"></i> {{ trans('admin/users.manage_lessons') }}<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{ URL('admin/lessons') }}">{{ trans('admin/users.all_lessons') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL('admin/lessons/create') }}">{{ trans('admin/users.create_lessons') }}</a>
-                                </li>
-
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-
-                        <li>
-                            <a href="#"><i class="fa fa-font fa-fw"></i> {{ trans('admin/users.manage_words') }}<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{ URL('admin/words') }}">{{ trans('admin/users.all_words') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL('admin/words/create') }}">{{ trans('admin/users.create_words') }}</a>
+                                    <a href="{{ action('Admin\CategoriesController@create') }}">
+                                        {{ trans('admin/users.create_categories') }}
+                                    </a>
                                 </li>
 
                             </ul>
@@ -139,10 +133,57 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-bullhorn fa-fw"></i> {{ trans('admin/users.manage_activities') }}<span class="fa arrow"></span></a>
+                            <a href="{{ action('Admin\LessonsController@index') }}">
+                                <i class="fa fa-file-text-o fa-fw"></i>
+                                {{ trans('admin/users.manage_lessons') }}<span class="fa arrow"></span>
+                            </a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ URL('admin/answers') }}">{{ trans('admin/users.all_activities') }}</a>
+                                    <a href="{{ action('Admin\LessonsController@index') }}">
+                                        {{ trans('admin/users.all_lessons') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ action('Admin\LessonsController@create') }}">
+                                        {{ trans('admin/users.create_lessons') }}
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="{{ action('Admin\WordsController@index') }}">
+                                <i class="fa fa-font fa-fw"></i>
+                                {{ trans('admin/users.manage_words') }}<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{ action('Admin\WordsController@index') }}">
+                                        {{ trans('admin/users.all_words') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ action('Admin\WordsController@create') }}">
+                                        {{ trans('admin/users.create_words') }}
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="{{ action('Admin\ActivitiesController@index') }}">
+                                <i class="fa fa-bullhorn fa-fw"></i>
+                                {{ trans('admin/users.manage_activities') }}<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{ action('Admin\ActivitiesController@index') }}">
+                                        {{ trans('admin/users.all_activities') }}
+                                    </a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

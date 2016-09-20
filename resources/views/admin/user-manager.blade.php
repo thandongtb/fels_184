@@ -15,7 +15,17 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('admin/users.all_users') }}</div>
+                <div class="panel-heading clearfix">
+                    <strong>{{ trans('admin/users.all_users') }}</strong>
+                    <span class="pull-right">
+                        {!! link_to_action(
+                            'Admin\UsersController@create',
+                            trans('admin/users.create'),
+                            null,
+                            ['class' => 'btn btn-success']
+                        ) !!}
+                    </span>
+                </div>
 
                 @include('layouts.errors')
                 @include('layouts.success')
@@ -28,8 +38,6 @@
                                 <th>{{ trans('admin/users.user_id') }}</th>
                                 <th>{{ trans('admin/users.user_name') }}</th>
                                 <th>{{ trans('admin/users.email') }}</th>
-                                <th>{{ trans('admin/users.user_follower') }}</th>
-                                <th>{{ trans('admin/users.user_followed') }}</th>
                                 <th>{{ trans('admin/users.role') }}</th>
                                 <th>{{ trans('admin/users.create_at') }}</th>
                                 <th>{{ trans('admin/users.edit') }}</th>
@@ -42,8 +50,6 @@
                                     <td>{{ $user->id }}</td>
                                     <td><a href="{{ URL('admin/users/' . $user->id) }}">{{ $user->name }}</a></td>
                                     <td>{{ $user->email }}</td>
-                                    <td><a href="#">{{ trans('admin/users.number') }}</a></td>
-                                    <td><a href="#">{{ trans('admin/users.number') }}</a></td>
                                     <th>
                                         @if ($user->isAdmin())
                                             {{ trans('admin/users.admin') }}
@@ -55,10 +61,14 @@
                                     <th>
                                         {!! link_to_route('users.edit', trans('admin/users.edit'), [$user->id], ['class' => 'btn btn-primary']) !!}
                                     </th>
-                                    @if (!$user->isCurrent())
+                                    @if (!$user->isAdmin())
                                         <th>
                                             {!! Form::open(['method' => 'delete', 'route' => ['users.destroy', $user->id] ]) !!}
-                                                {{ Form::button(trans('admin/users.delete'), ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm(trans('admin/users.delete_warning'))"]) }}
+                                                {{ Form::button(trans('admin/users.delete'), [
+                                                    'type' => 'submit',
+                                                    'class' => 'btn btn-danger',
+                                                    'onclick' => 'return confirm("' . trans('admin/users.delete_warning') . '")'
+                                                ]) }}
                                             {{ Form::close() }}
                                         </th>
                                     @else
