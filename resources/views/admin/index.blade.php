@@ -105,13 +105,6 @@
     </div>
     <!-- /.row -->
 
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header text-center">{{ trans('admin/users.all_activities') }}</h2>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-
 </div>
 <!-- /#page-wrapper -->
 @endsection
