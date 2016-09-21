@@ -14,12 +14,12 @@
 
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
-            {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+            {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'PUT', 'class' => 'form-horizontal',  'files' => true]) !!}
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3 col-lg-3 " align="center">
-                                <img alt="User Pic" src="https://pickaface.net/gallery/avatar/unr_hehe_160911_2042_qfuo9sh.png" class="img-circle img-responsive">
+                                <img alt="{{ $user->name }}" src="{{ is_null($user->avatar) ? config('user.avatar.default_url') : $user->getAvatarUrl() }}" class="img-circle img-responsive user-avatar" id="user-account-avatar">
                             </div>
                             <div class=" col-md-9 col-lg-9 ">
                                 <table class="table table-user-information">
@@ -45,6 +45,9 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td></td>
+                                            <td>{!! Form::file('avatar', ['class' => 'hide', 'id' => 'file-account-avatar']) !!}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -60,4 +63,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    {!! Html::script('js/user-update.js') !!}
 @endsection

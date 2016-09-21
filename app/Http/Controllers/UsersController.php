@@ -21,6 +21,7 @@ class UsersController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
+            'avatar' => 'mimes:jpeg,jpg,png|max:1000',
         ]);
     }
 
@@ -71,7 +72,11 @@ class UsersController extends Controller
         try {
             $user = User::findOrFail($id);
 
-            return view('user-update', compact('user'));
+            if ($user->isCurrent()) {
+                return view('user-update', compact('user'));
+            }
+
+            return redirect()->to(action('HomeController@index'));
         } catch (ModelNotFoundException $ex) {
             return view('user-profile')->withErrors($ex->getMessage());
         }
@@ -118,11 +123,25 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->only('name', 'email');
+        if ($request->hasFile('avatar')) {
+            $data = $request->only('name', 'email', 'avatar');
+        } else {
+            $data = $request->only('name', 'email');
+        }
+
         $validator = $this->validator($data);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->all());
+        }
+
+        $configPath = config('common.user.path');
+
+        if (isset($data['avatar'])) {
+            $avatar = $request->file('avatar');
+            $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
+            $request->file('avatar')->move(base_path() . $configPath['public_avatar_url'], $fileName);
+            $data['avatar'] = $fileName;
         }
 
         try {

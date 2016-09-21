@@ -9,4 +9,11 @@ return [
             'default_photo_url' => 'https://cdn3.iconfinder.com/data/icons/unicons-vector-icons-pack/32/categories-256.png',
         ],
     ],
+    'user' => [
+        'path' => [
+            'public_avatar_url' => '/public/images/user-avatar/',
+            'avatar_url' => '/images/user-avatar/',
+            'default_avatar_url' => 'https://pickaface.net/gallery/avatar/unr_hehe_160911_2042_qfuo9sh.png',
+        ],
+    ],
 ];
