@@ -67,4 +67,9 @@ return [
         'title' => 'List User',
     ],
     'see_more' => 'See More',
+    'sumary_title' => 'User Summary',
+    'number_following' => 'Following Users : ',
+    'number_follower' => 'Follower Users : ',
+    'number_learned_word' => 'Learned Words : ',
+    'number_unlearned_word' => 'Unlearned Words : ',
 ];
