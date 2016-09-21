@@ -18,6 +18,9 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
 
+                @include('layouts.errors')
+                @include('layouts.success')
+
                 {!! Form::open(['route' => 'users.store',
                     'method' => 'POST',
                     'class' => 'form-horizontal',

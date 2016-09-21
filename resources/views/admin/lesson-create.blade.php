@@ -42,7 +42,7 @@
                                 <td>
                                     {!! Form::text('lesson_name', null, [
                                         'class' => 'form-control',
-                                        'placeholder' => trans('admin/categories.category_name')
+                                        'placeholder' => trans('admin/lessons.lesson_name')
                                     ]) !!}
                                 </td>
                             </tr>

@@ -21,7 +21,7 @@
             {!! Form::open([
                 'route' => 'words.store',
                 'method' => 'POST',
-                'class' => 'form-horizontal',
+                'class' => 'form-horizontal form-create-word',
             ]) !!}
 
             <div class="panel panel-info">
@@ -29,6 +29,9 @@
                     <h3 class="panel-title">{{ trans('admin/words.word_info') }}</h3>
                 </div>
                 <!-- /.panel-heading -->
+
+                @include('layouts.errors')
+                @include('layouts.success')
 
                 <div class="panel-body">
                     <div class="form-group">
@@ -38,7 +41,7 @@
                                     <td>{{ trans('admin/words.word_category') }}:</td>
                                     <td>
                                         {{ Form::select('category_id', $categories, null, [
-                                            'class' => 'form-control',
+                                            'class' => 'form-control category-id',
                                             'placeholder' => trans('admin/words.pick_category')
                                         ]) }}
                                     </td>
@@ -47,7 +50,7 @@
                                     <td>{{ trans('admin/words.word_content') }}:</td>
                                     <td>
                                         {!! Form::text('word_content', null, [
-                                            'class' => 'form-control',
+                                            'class' => 'form-control word-content',
                                             'placeholder' => trans('admin/words.word_content')
                                         ]) !!}
                                         {{ csrf_field() }}
@@ -76,7 +79,7 @@
                                             <td>{{ trans('admin/words.word_answer') }}</td>
                                             <td>
                                                 {!! Form::text('answers[content][]', null,
-                                                    ['class' => 'form-control']
+                                                    ['class' => 'form-control answer-content']
                                                 ) !!}
                                             </td>
                                         </tr>
@@ -88,7 +91,6 @@
                                                     config('word.answer.not_correct') => trans('admin/words.word_false')],
                                                     null, [
                                                         'class' => 'form-control',
-                                                        'placeholder' => trans('admin/words.is_correct')
                                                 ]) !!}
                                             </td>
                                         </tr>
@@ -124,7 +126,7 @@
                             <td>
                                 {!! Form::button(
                                     '<i class="fa fa-pencil-square"></i> ' . trans('admin/words.create'),
-                                    ['type' => 'submit', 'class' => 'btn btn-success btn-save']
+                                    ['type' => 'button', 'class' => 'btn btn-success btn-save']
                                 ) !!}
                             </td>
                         </tr>
@@ -145,7 +147,7 @@
                                 <td>{{ trans('admin/words.word_answer') }}</td>
                                 <td>
                                     {!! Form::text('answers[content][]', null,
-                                        ['class' => 'form-control']
+                                        ['class' => 'form-control answer-content']
                                     ) !!}
                                 </td>
                             </tr>
@@ -157,7 +159,6 @@
                                         config('word.answer.not_correct') => trans('admin/words.word_false')],
                                         null, [
                                             'class' => 'form-control',
-                                            'placeholder' => trans('admin/words.is_correct')
                                     ]) !!}
                                 </td>
                             </tr>

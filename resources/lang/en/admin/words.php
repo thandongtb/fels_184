@@ -67,4 +67,5 @@ return [
     'add_answer' => 'Add Answer',
     'remove_answer' => 'Remove Answer',
     'pick_category' => 'Pick a category...',
+    'required_field' => 'Please Fill All Required Field !'
 ];

@@ -34,7 +34,7 @@
                                         </tr>
                                         <tr>
                                             <td>{{ trans('admin/users.email') }}:</td>
-                                            <td>{!! Form::text('email', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('admin/users.your_email')]) !!}</td>
+                                            <td>{!! Form::text('email', null, ['class' => 'form-control', 'required' => 'required', 'disabled' => 'disabled', 'placeholder' => trans('admin/users.your_email')]) !!}</td>
                                         </tr>
                                         <tr>
                                             <td>{{ trans('admin/users.change_password') }}:</td>

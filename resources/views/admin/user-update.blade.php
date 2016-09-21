@@ -18,6 +18,9 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
 
+                @include('layouts.errors')
+                @include('layouts.success')
+
                 {!! Form::model($user, ['route' => ['users.show', $user->id], 'method' => 'PUT',
                     'class' => 'form-horizontal', 'files' => true
                 ]) !!}

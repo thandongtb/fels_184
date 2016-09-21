@@ -17,6 +17,10 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
+
+                @include('layouts.errors')
+                @include('layouts.success')
+
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3 col-lg-3" align="center">

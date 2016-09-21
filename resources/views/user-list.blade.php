@@ -41,7 +41,7 @@
                                 <th>{{ trans('admin/users.user_name') }}</th>
                                 <th>{{ trans('admin/users.email') }}</th>
                                 <th>{{ trans('admin/users.user_follower') }}</th>
-                                <th>{{ trans('admin/users.user_followed') }}</th>
+                                <th>{{ trans('admin/users.user_following') }}</th>
                                 <th>{{ trans('admin/users.role') }}</th>
                                 <th>{{ trans('admin/users.create_at') }}</th>
                                 <th>{{ trans('admin/users.edit') }}</th>

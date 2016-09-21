@@ -17,11 +17,15 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
+
+                @include('layouts.errors')
+                @include('layouts.success')
+
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3 col-lg-3" align="center">
                             <img alt="category Pic" src="{{ asset(config('common.category.path.default_photo_url')) }}"
-                            class="img-responsive">
+                            class="img-responsive" id="image-category">
                         </div>
                         <div class="col-md-9 col-lg-9">
                             <table class="table table-category-information">
@@ -44,7 +48,7 @@
                                     </tr>
                                     <tr>
                                         <td>{{ trans('admin/categories.category_photo') }}:</td>
-                                        <td>{!! Form::file('photo') !!}</td>
+                                        <td>{!! Form::file('photo',  ['class' => '', 'id' => 'file-category-photo']) !!}</td>
                                     </tr>
                                     {{ csrf_field() }}
                                 </tbody>
@@ -70,4 +74,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+    {!! Html::script('js/admin.js') !!}
 @endsection
