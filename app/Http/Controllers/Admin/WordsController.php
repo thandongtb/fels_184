@@ -21,7 +21,7 @@ class WordsController extends Controller
      */
     public function index()
     {
-        $words = Word::with('category')->orderby('id')->paginate(config('paginate.word.normal'));
+        $words = Word::with('category')->orderby('created_at', 'desc')->paginate(config('paginate.word.normal'));
 
         return view('admin.word-manager', compact('words'));
     }
@@ -109,7 +109,7 @@ class WordsController extends Controller
         $word = Word::with('category')->find($id);
 
         if ($word) {
-            $categories = Category::pluck('name');
+            $categories = Category::pluck('name', 'id');
             $answers = $word->answers;
 
             return view('admin.word-update', compact('word', 'categories', 'answers'));

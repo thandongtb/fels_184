@@ -16,6 +16,9 @@
         </div>
     </div>
 
+    @include('layouts.errors')
+    @include('layouts.success')
+
     <div class="row">
         <div class="col-lg-12">
             {!! Form::model($word, [
@@ -40,7 +43,7 @@
                                     <td>
                                         {{ Form::select(
                                             'category_id', $categories,
-                                            $word->category->name, [
+                                            $word->category->id, [
                                             'class' => 'form-control'
                                         ]) }}
                                     </td>
@@ -90,7 +93,6 @@
                                                 config('word.answer.not_correct') => trans('admin/words.word_false')],
                                                 $answer->is_correct, [
                                                     'class' => 'form-control',
-                                                    'placeholder' => trans('admin/words.is_correct')
                                             ]) !!}
                                         </td>
                                     </tr>
