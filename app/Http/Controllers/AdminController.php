@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Word;
+use App\Models\Lesson;
 use Auth;
 
 class AdminController extends Controller
@@ -21,8 +22,9 @@ class AdminController extends Controller
         $totalUsers = User::count();
         $totalCategories = Category::count();
         $totalWords = Word::count();
+        $totalLessons = Lesson::count();
 
-        return view('admin.index', compact('totalUsers', 'totalCategories', 'totalWords'));
+        return view('admin.index', compact('totalUsers', 'totalCategories', 'totalWords', 'totalLessons'));
     }
 
     /**

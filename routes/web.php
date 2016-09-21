@@ -53,5 +53,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::resource('users', 'UsersController');
         Route::resource('categories', 'CategoriesController');
         Route::resource('words', 'WordsController');
+        Route::resource('lessons', 'LessonsController');
     });
 });
