@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('css')
+    {!! Html::style('css/user.css') !!}
+    {!! Html::style('bower/toastr/toastr.css') !!}
+@endsection()
+
 @section('content')
 
 <div id="page-wrapper">
@@ -11,6 +16,8 @@
     </div>
 
     @include('layouts.message')
+
+    <div id="home-url" data-url="{{ action('HomeController@index') }}"></div>
 
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
@@ -55,6 +62,22 @@
                                         <td>{{ trans('admin/users.create_at') }}:</td>
                                         <td>{{ $user->created_at }}</td>
                                     </tr>
+                                    <tr>
+                                        <td>{{ trans('admin/users.is-follow') }}:</td>
+                                        @if (Auth::user()->isFollowingAnother($user))
+                                            <th>
+                                                <a class="btn-follow" data-follow="1" data-user-followed-id="{{ $user->id }}">
+                                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                                </a>
+                                            </th>
+                                        @else
+                                            <th class="text=center">
+                                                <a class="btn-follow" data-follow="0" data-user-followed-id="{{ $user->id }}">
+                                                    <i class="fa fa-times unfollow" aria-hidden="true"></i>
+                                                </a>
+                                            </th>
+                                        @endif
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -71,4 +94,9 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    {!! Html::script('js/user_list.js') !!}
+    {!! Html::script('bower/toastr/toastr.js') !!}
 @endsection

@@ -20,7 +20,7 @@ class UsersController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'email|unique:users',
             'avatar' => 'mimes:jpeg,jpg,png|max:1000',
         ]);
     }
@@ -123,29 +123,35 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->hasFile('avatar')) {
-            $data = $request->only('name', 'email', 'avatar');
-        } else {
-            $data = $request->only('name', 'email');
-        }
-
-        $validator = $this->validator($data);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors()->all());
-        }
-
-        $configPath = config('common.user.path');
-
-        if (isset($data['avatar'])) {
-            $avatar = $request->file('avatar');
-            $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
-            $request->file('avatar')->move(base_path() . $configPath['public_avatar_url'], $fileName);
-            $data['avatar'] = $fileName;
-        }
-
         try {
-            $result = User::findOrFail($id)->update($data);
+            $user = User::findOrFail($id);
+
+            if ($request->hasFile('avatar')) {
+                $data = $request->only('name', 'email', 'avatar');
+            } else {
+                $data = $request->only('name', 'email');
+            }
+
+            if ($user->email == $data['email']) {
+                unset($data['email']);
+            }
+
+            $validator = $this->validator($data);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->errors()->all());
+            }
+
+            $configPath = config('common.user.path');
+
+            if (isset($data['avatar'])) {
+                $avatar = $request->file('avatar');
+                $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
+                $request->file('avatar')->move(base_path() . $configPath['public_avatar_url'], $fileName);
+                $data['avatar'] = $fileName;
+            }
+
+            $result = $user->update($data);
 
             if ($result) {
                 return redirect()->to(action('UsersController@show', ['id' => $id]));
