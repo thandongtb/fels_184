@@ -692,3 +692,7 @@ img {
 .screenshot-title i {
     color: #35A1FB;
 }
+
+.user-avatar {
+    cursor: pointer;
+}

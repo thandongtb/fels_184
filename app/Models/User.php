@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'avatar',
     ];
     protected $dates = ['deleted_at'];
 
@@ -36,6 +37,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function getAvatarUrl()
+    {
+        return asset(config('common.user.path.avatar_url') . $this->avatar);
+    }
 
     public function isAdmin()
     {

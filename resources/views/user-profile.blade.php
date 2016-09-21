@@ -18,7 +18,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3 col-lg-3 " align="center">
-                            <img alt="User Pic" src="https://pickaface.net/gallery/avatar/unr_hehe_160911_2042_qfuo9sh.png" class="img-circle img-responsive">
+                            <img alt="{{ $user->name }}" src="{{ is_null($user->avatar) ? config('user.avatar.default_url') : $user->getAvatarUrl() }}" class="img-circle img-responsive">
                         </div>
                         <div class=" col-md-9 col-lg-9 ">
                             <table class="table table-user-information">
@@ -62,7 +62,9 @@
                 </div>
 
                 <div class="panel-footer text-center">
-                    {!! link_to_route('user.edit', trans('admin/users.edit'), [$user->id], ['class' => 'btn btn-success']) !!}
+                    @if ($user->isCurrent())
+                        {!! link_to_route('user.edit', trans('admin/users.edit'), [$user->id], ['class' => 'btn btn-success']) !!}
+                    @endif
                 </div>
             </div>
         </div>
