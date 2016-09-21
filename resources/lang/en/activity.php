@@ -16,4 +16,5 @@ return [
     'target_content_2' => 'Learn New Word',
     'target_content_3' => 'Following User',
     'target_content_4' => 'Unfollow User',
+    'no_activity' => 'No Actiivties',
 ];

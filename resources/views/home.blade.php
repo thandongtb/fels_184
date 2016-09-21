@@ -93,13 +93,16 @@
                                                                     <td>
                                                                         <div class="media col-md-12">
                                                                             <div class="col-md-3">
-                                                                                <a href="#" class="{{ $type }}">
+
                                                                                     @if ($type == config('word.filter.ulearn') || $type == config('word.filter.learned'))
-                                                                                        {{ $filterResult->word->content }}
+                                                                                        <a href="{{ action('WordsController@show',['id' => $filterResult->word->id ]) }}" class="{{ $type }}">
+                                                                                            {{ $filterResult->word->content }}
+                                                                                        </a>
                                                                                     @else
-                                                                                        {{ $filterResult->content }}
+                                                                                        <a href="{{ action('WordsController@show',['id' => $filterResult->id ]) }}" class="{{ $type }}">
+                                                                                            {{ $filterResult->content }}
+                                                                                        </a>
                                                                                     @endif
-                                                                                </a>
                                                                             </div>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right"></span>

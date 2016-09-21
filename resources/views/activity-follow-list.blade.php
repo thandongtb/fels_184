@@ -22,13 +22,13 @@
         <div class="col-lg-8 col-lg-offset-2">
             <div class="text-center">
                 <a href="{{ action('ActivitiesController@index') }}">
-                    <button class="btn btn-primary">{{ trans('activity.all_user')  }}</button>
+                    <button class="btn btn-primary">{{ trans('activity.all_user') }}</button>
                 </a>
                 <a href="{{ action('ActivitiesController@showFollowingUserActivities', ['id' => Auth::user()->id] ) }}">
-                    <button class="btn btn-success">{{ trans('activity.activity_follower_list') }}</button>
+                    <button class="btn btn-success">{{ trans('activity.activity_following_list') }}</button>
                 </a>
                 <a href="{{ action('ActivitiesController@showUserFollowersActivities', ['id' => Auth::user()->id]) }}">
-                    <button class="btn btn-danger">{{ trans('activity.activity_following_list') }}</button>
+                    <button class="btn btn-danger">{{ trans('activity.activity_follower_list') }}</button>
                 </a>
             </div>
             <hr>
@@ -45,18 +45,27 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $key => $user)
-                                @foreach ($user->activities as $activity)
+                                @if (count($user->activities) == 0)
                                     <tr class="odd gradeX">
-                                        <td>{{ $activity->id }}</td>
-                                        <td>{{ $activity->user->name }}</td>
-                                        <td>{{ config('activity.target.' . $activity->target_id . '.target_content') }}</td>
-                                        <td>
-                                            <a href="{{ $activity->linkToObject() }}">
-                                                {{ isset($activity->object()->first()->name) ? $activity->object()->first()->name : $activity->object()->first()->content }}
-                                            </a>
-                                        </td>
+                                        <td></td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ trans('activity.no_activity') }}</td>
+                                        <td></td>
                                     </tr>
-                                @endforeach()
+                                @else
+                                    @foreach ($user->activities as $activity)
+                                        <tr class="odd gradeX">
+                                            <td>{{ $activity->id }}</td>
+                                            <td>{{ $activity->user->name }}</td>
+                                            <td>{{ trans('activity.target_content_' . $activity->target_id) }}</td>
+                                            <td>
+                                                <a href="{{ $activity->linkToObject() }}">
+                                                    {{ isset($activity->object()->first()->name) ? $activity->object()->first()->name : $activity->object()->first()->content }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
